@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${pageTitle}">Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .stat-card {
+            transition: transform 0.3s;
+            border: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        .dashboard-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        <a class="navbar-brand" href="/">🏥 GRH System</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="navbar-nav">
+                <a class="nav-link text-white" href="/web/patients">Patients</a>
+                <a class="nav-link text-white" href="/web/doctors">Médecins</a>
+                <a class="nav-link text-white" href="/web/appointments">Rendez-vous</a>
+                <a class="nav-link active" href="/dashboard">Dashboard</a>
+                <a class="nav-link text-white" href="/">Accueil</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Dashboard Header -->
+<div class="dashboard-header">
+    <div class="container">
+        <h1 class="display-4">Tableau de Bord</h1>
+        <p class="lead">Vue d'ensemble du système de gestion hospitalière</p>
+    </div>
+</div>
+
+<div class="container mt-4">
+    <!-- Statistics Cards -->
+    <div class="row">
+        <div class="col-md-3 mb-4">
+            <div class="card stat-card text-white bg-primary">
+                <div class="card-body text-center">
+                    <h1 class="display-4" th:text="${patientCount}">0</h1>
+                    <h5 class="card-title">Patients</h5>
+                    <p class="card-text">Patients enregistrés</p>
+                    <a href="/web/patients" class="btn btn-light btn-sm">Voir Patients</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="card stat-card text-white bg-success">
+                <div class="card-body text-center">
+                    <h1 class="display-4" th:text="${doctorCount}">0</h1>
+                    <h5 class="card-title">Médecins</h5>
+                    <p class="card-text">Médecins disponibles</p>
+                    <a href="/web/doctors" class="btn btn-light btn-sm">Voir Médecins</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="card stat-card text-white bg-warning">
+                <div class="card-body text-center">
+                    <h1 class="display-4" th:text="${appointmentCount}">0</h1>
+                    <h5 class="card-title">Rendez-vous</h5>
+                    <p class="card-text">Total des rendez-vous</p>
+                    <a href="/web/appointments" class="btn btn-light btn-sm">Voir Rendez-vous</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="card stat-card text-white bg-info">
+                <div class="card-body text-center">
+                    <h1 class="display-4" th:text="${todayAppointments}">0</h1>
+                    <h5 class="card-title">Aujourd'hui</h5>
+                    <p class="card-text">Rendez-vous du jour</p>
+                    <a href="/web/appointments" class="btn btn-light btn-sm">Voir Agenda</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <h3>Actions Rapides</h3>
+            <div class="row mt-3">
+                <div class="col-md-4 mb-3">
+                    <div class="card stat-card">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">👥 Gestion des Patients</h5>
+                            <p class="card-text">Ajouter, modifier et consulter les dossiers patients</p>
+                            <div class="btn-group">
+                                <a href="/web/patients" class="btn btn-primary">Liste</a>
+                                <a href="/web/patients/create" class="btn btn-outline-primary">Nouveau</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="card stat-card">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">👨‍⚕️ Gestion des Médecins</h5>
+                            <p class="card-text">Administrer le personnel médical et spécialités</p>
+                            <div class="btn-group">
+                                <a href="/web/doctors" class="btn btn-success">Liste</a>
+                                <a href="/web/doctors/create" class="btn btn-outline-success">Nouveau</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="card stat-card">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">📅 Gestion des Rendez-vous</h5>
+                            <p class="card-text">Planifier et suivre les consultations médicales</p>
+                            <div class="btn-group">
+                                <a href="/web/appointments" class="btn btn-warning">Liste</a>
+                                <a href="/web/appointments/create" class="btn btn-outline-warning">Nouveau</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Upcoming Appointments Summary -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">
+                        📋 Résumé des Prochains Rendez-vous
+                        <span class="badge bg-primary ms-2" th:text="${upcomingAppointments}">0</span>
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text" th:if="${upcomingAppointments == 0}">
+                        Aucun rendez-vous à venir dans les 7 prochains jours.
+                    </p>
+                    <p class="card-text" th:if="${upcomingAppointments > 0}">
+                        Vous avez <strong th:text="${upcomingAppointments}"></strong> rendez-vous planifiés dans les 7 prochains jours.
+                    </p>
+                    <a href="/web/appointments" class="btn btn-primary">Voir Tous les Rendez-vous</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- System Status -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">🟢 Statut du Système</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Base de données MongoDB
+                                    <span class="badge bg-success">Connecté</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Service Patients
+                                    <span class="badge bg-success">Opérationnel</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Service Médecins
+                                    <span class="badge bg-success">Opérationnel</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Service Rendez-vous
+                                    <span class="badge bg-success">Opérationnel</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="bg-dark text-white mt-5 py-4">
+    <div class="container text-center">
+        <p class="mb-0">🏥 Système de Gestion de Rendez-vous Hospitaliers (GRH) &copy; 2024</p>
+        <p class="mb-0">Développé avec Spring Boot, MongoDB et Thymeleaf</p>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
